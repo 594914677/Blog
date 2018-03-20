@@ -1,0 +1,69 @@
+<!-- 头部公共文件 -->
+{include file="public/header"}
+<body class="childrenBody">
+<blockquote class="layui-elem-quote search">
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-normal categoryAdd" data-url="{:url('admin/category/categoryAdd')}">添加分类</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-danger categoryDel" data-url="{:url('admin/category/categoryDelAll')}">批量删除</a>
+    </div>
+
+</blockquote>
+<div class="layui-form category_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="50">
+            <col>
+            <col>
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
+            <th>id</th>
+            <th>名称</th>
+            <th>链接地址</th>
+            <th>是否展示</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="news_content">
+        {volist name="list" id="vo"}
+        <tr data-id="{$vo.id}">
+            <td>
+                <input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
+                    <i class="layui-icon"></i>
+                </div>
+            </td>
+            <td>{$vo.id}</td>
+            <td align="left">{$vo.name}</td>
+            <td align="left">{$vo.links}</td>
+
+            <td><input type="checkbox" name="show" lay-skin="switch" data-url="{:url('admin/category/categoryIsShow', array('id'=>$vo['id']) )}" data-id="{$vo.id}"  lay-text="是|否" lay-filter="isShow" {$vo.isShow ? 'checked' : ''}>
+                {if condition="($vo.isShow == 1)"}
+                <div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>是</em><i></i></div>
+                {else /}
+                <div class="layui-unselect layui-form-switch" lay-skin="_switch"><em>否</em><i></i></div>
+                {/if}
+            </td>
+
+            <td class="other">
+                <a class="layui-btn layui-btn-xs category_edit" data-url="{:url('admin/category/categoryUp', array('id'=>$vo['id']) )}" data-id="{$vo.id}"><i class="iconfont icon-edit"></i> 编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs category_del" data-url="{:url('admin/category/categoryDel', array('id'=>$vo['id']) )}" data-id="{$vo.id}"><i class="layui-icon"></i> 删除</a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+
+<div id="page"></div>
+
+<ul id="biuuu_city_list"></ul>
+<script type="text/javascript" src="__LAYUI__/layui.js"></script>
+<script type="text/javascript" src="__JS__admin/category/categoryList.js"></script>
+
+</body>
+</html>

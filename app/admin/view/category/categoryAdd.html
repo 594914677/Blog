@@ -1,0 +1,48 @@
+<!-- 头部公共文件 -->
+{include file="public/header"}
+<body class="childrenBody">
+
+<form class="layui-form" style="width:80%;">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">自定义属性</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="isShow" class="isShow" title="展示">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">栏目名称</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input name" lay-verify="required" placeholder="请输入栏目名称">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">所属分类</label>
+            <div class="layui-input-inline">
+                <select name="pName" class="pName">
+                    <option value="">请选择一个分类</option>
+                    {volist name="category" id="vo"}
+                    <option value="{$vo.id}">{$vo.name}</option>
+                    {/volist}
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">不选择默认顶级分类</div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">链接地址</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input links" placeholder="请输入链接地址" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="addCategory">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="__LAYUI__/layui.js"></script>
+<script type="text/javascript" src="__JS__admin/category/categoryAdd.js"></script>
+</body>
+</html>

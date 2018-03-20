@@ -1,0 +1,56 @@
+<!-- 头部公共文件 -->
+{include file="public/header"}
+<body class="childrenBody">
+<blockquote class="layui-elem-quote search">
+    <div class="layui-inline">
+        <a class="layui-btn carouselAdd_btn" style="background-color:#5FB878" data-url="{:url('admin/carousel/carouselAdd')}">添加轮播图</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-danger batchDel" data-url="{:url('admin/carousel/carouselDelAll')}">批量删除</a>
+    </div>
+
+</blockquote>
+<div class="layui-form carousel_list">
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
+            <th style="text-align:left;">轮播名称</th>
+            <th>存储地址</th>
+            <th>url地址</th>
+            <th>是否展示</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="carousel_content">
+        {volist name="list" id="vo" empty="暂时没有数据"}
+        <tr data-id="{$vo.id}">
+            <td>
+                <input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
+                    <i class="layui-icon"></i>
+                </div>
+            </td>
+            <td align="left">{$vo.name}</td>
+            <td align="left">{$vo.img}</td>
+            <td align="left">{$vo.url}</td>
+            <td><input type="checkbox" name="show" lay-skin="switch" data-url="{:url('admin/carousel/carouselIsShow', array('id'=>$vo['id']) )}" data-id="{$vo.id}"  lay-text="是|否" lay-filter="isShow" {$vo.isShow ? 'checked' : ''}>
+                {if condition="($vo.isShow == 1)"}
+                <div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>是</em><i></i></div>
+                {else /}
+                <div class="layui-unselect layui-form-switch" lay-skin="_switch"><em>否</em><i></i></div>
+                {/if}
+            </td>
+            <td class="other">
+                <a class="layui-btn layui-btn-xs carousel_edit" data-url="{:url('admin/carousel/carouselUp', array('id'=>$vo['id']) )}" data-id="{$vo.id}">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs carousel_del" data-url="{:url('admin/carousel/carouselDel', array('id'=>$vo['id']) )}" data-id="{$vo.id}">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" src="__LAYUI__/layui.js"></script>
+<script type="text/javascript" src="__JS__admin/carousel/carouselList.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!-- 头部公共文件 -->
+{include file="public/header"}
+<body class="childrenBody">
+{volist name="list" id="vo"}
+{/volist}
+<form class="layui-form" style="width:80%;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">轮播名称</label>
+        <div class="layui-input-block">
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test1">上传图片</button>
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" id="demo1" src="{$vo.img}">
+                    <p id="demoText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">轮播名称</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input name" value="{$vo.name}" lay-verify="required" placeholder="请输入网站名称">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">url地址</label>
+        <div class="layui-input-block">
+            <input type="tel" class="layui-input url" value="{$vo.url}" lay-verify="required" placeholder="请输入网站地址">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否展示</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="isShow" class="isShow" title="展示" {$vo.isShow ? 'checked' : ''}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="UpCarousel">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <input type="hidden" value="{$vo.id}" class="id">
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="__LAYUI__/layui.js"></script>
+<script type="text/javascript" src="__JS__admin/carousel/carouselUp.js"></script>
+</body>
+</html>

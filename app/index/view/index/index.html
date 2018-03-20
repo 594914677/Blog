@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>琪啊琪啊琪啊琪的博客</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="__PUBLIC__favicon.ico">
+    <link rel="stylesheet" href="__LAYUI__css/layui.css" media="all" />
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
+    <link rel="stylesheet" href="__CSS__index/index.css" media="all" />
+    <link rel="stylesheet" href="__CSS__index/main.css" media="all" />
+</head>
+<body>
+<!-- 头部公共文件 -->
+<div class="layui-header header">
+    <div class="index_main main">
+        <a class="logo" href="/"><img src="__IMG__index/logo.jpg" alt="个人博客系统"></a>
+        <ul class="layui-nav" lay-filter="top_nav">
+            <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+            {volist name="category" id="vo" empty=""}
+            <li class="layui-nav-item">
+                <a href="{:url('index/index/index',  array('cid'=>$vo['id']) )}">{$vo.name}</a>
+                <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                    {volist name="$vo.child" id="vos" empty=""}
+                    <dd><a href="{:url('index/index/index',  array('cid'=>$vos['id']) )}">{$vos.name}</a></dd>
+                    {/volist}
+                </dl>
+            </li>
+            {/volist}
+
+        </ul>
+        <form class="head_search  layui-form" method = "get"  action ="{:url('index/index/Search')}" style="display:inline">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" value="" name="search" placeholder="请输入搜索的内容" class="layui-input search_input">
+                </div>
+                <button class="layui-btn" lay-submit lay-filter="formid">查询</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="layui-carousel carousel" id="carousel">
+    <div carousel-item>
+        {volist name="carousel" id="vo" empty="暂无数据"}
+        <div><img src="{$vo.img}" alt="{$vo.name}" class="carousel_img"></div>
+        {/volist}
+    </div>
+
+</div>
+<!-- banner  -->
+<!--<div class="banner" style="background:#393D49">
+    <div class="main index_main">
+        <img class="banner_pic" src="__IMG__index/banner.jpg" alt="banner">
+    </div>
+</div>-->
+<!-- 文章 -->
+<div class="main index_main">
+    <!-- 左侧 -->
+    <div class="page_left">
+        <ul class="page_left_list">
+            {volist name="list" id="vo" empty="暂无数据"}
+            <li class="no_pic">
+
+                <h2 class="title"><a href="{:url('index/article/index',  array('id'=>$vo['id']) )}">
+                    {if condition="$vo.tuijian"}<span class="top">置顶</span>{/if}
+                    {$vo.newsName}</a>
+                </h2>
+                <div class="date_hits">
+                    <span>{$vo.newsTime}</span>
+                    <span><a href="{:url('index/index/index',  array('cid'=>$vo['newsCid']) )}">{$vo.name}</a></span>
+                    <span class="hits"><i class="layui-icon" title="点击量"></i> {$vo.total} ℃</span>
+                    <p class="commonts"><i class="layui-icon" title="点击量"></i> <span id="sourceId::1556" class="cy_cmt_count">0</span></p>
+                </div>
+                <div class="desc">{$vo.textarea}</div>
+            </li>
+            {/volist}
+        </ul>
+        <div>
+            {$list->render()}
+        </div>
+    </div>
+    <!-- 右侧 -->
+    <div class="page_right">
+       <!-- <div class="about_stationmaster_container">
+            <h3>博主信息</h3>
+            <ol class="page_right_list trans_3">
+                <li>姓名：张丹峰</li><li>职业：PHP程序猿、WEB前端</li><li>座右铭：业精于勤、学无止境、工匠精神</li><li>QQ群：602099721 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9e3d8ac1ba7022b4cc6a492c7645e0198a06afbde7e6d55cab5ca5dbbac5c186"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="老张博客-Lz-CMS交流群" title="老张博客-Lz-CMS交流群"></a></li>			</ol>
+        </div>
+-->
+        <div class="new_list">
+            <h3>最新文章</h3>
+            <ol class="page_right_list trans_3">
+                {volist name="list" id="vo" length='5'}
+                <li><a href="{:url('index/article/index',  array('id'=>$vo['id']) )}">{$vo.newsName}</a><span class="hits"> {$vo.total} ℃ </span></li>
+                {/volist}
+            </ol>
+        </div>
+
+        <div class="hot_list">
+            <h3>最近热文</h3>
+            <ol class="page_right_list trans_3">
+                {volist name="list" id="vo" length='5'}
+                <li><a href="{:url('index/article/index',  array('id'=>$vo['id']) )}">{$vo.newsName}</a><span class="hits"> {$vo.total} ℃ </span></li>
+                {/volist}
+            </ol>
+        </div>
+
+        <h3>友情连接</h3>
+        <div class="links trans_3">
+            {volist name="links" id="vo"}
+            <a href="{$vo.linksUrl}" target="_blank">{$vo.linksName}</a>
+            {/volist}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- 底部公共文件 -->
+{include file="public/footed"}
+<script type="text/javascript" src="__LAYUI__/layui.js"></script>
+<script type="text/javascript" src="__JS__index/index/index.js"></script>
+</body>
+</html>

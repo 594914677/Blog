@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>我的博客</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="__PUBLIC__favicon.ico">
+    <link rel="stylesheet" href="__LAYUI__css/layui.css" media="all" />
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
+    <link rel="stylesheet" href="__CSS__index/index.css" media="all" />
+    <link rel="stylesheet" href="__CSS__index/article.css" media="all" />
+</head>
+<body>
+<!-- 头部公共文件 -->
+<div class="layui-header header">
+    <div class="index_main main">
+        <a class="logo" href="/"><img src="__IMG__index/logo.jpg" alt="个人博客系统"></a>
+        <ul class="layui-nav" lay-filter="top_nav">
+            <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+            {volist name="category" id="vo" empty=""}
+            <li class="layui-nav-item">
+                <a href="{:url('index/index/index',  array('cid'=>$vo['id']) )}">{$vo.name}</a>
+                <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                    {volist name="$vo.child" id="vos" empty=""}
+                    <dd><a href="{:url('index/index/index',  array('cid'=>$vos['id']) )}">{$vos.name}</a></dd>
+                    {/volist}
+                </dl>
+            </li>
+            {/volist}
+
+        </ul>
+        <form class="head_search  layui-form" method = "get"  action ="{:url('index/index/Search')}" style="display:inline">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" value="" name="search" placeholder="请输入搜索的内容" class="layui-input search_input">
+                </div>
+                <button class="layui-btn" lay-submit lay-filter="formid">查询</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 面包屑导航 -->
+<div class="main">
+    <blockquote class="layui-elem-quote nav">
+        <span class="layui-breadcrumb breadcrumb" lay-separator="-">
+            <a href="/">首页</a>
+            {volist name="list" id="vo" empty=""}
+            <a href="{:url('index/index/index',  array('cid'=>$vo['newsCid']) )}">{$vo.name}</a>
+            {/volist}
+            <a><cite>正文</cite></a>
+
+        </span>
+    </blockquote>
+</div>
+<!-- 文章 开始 -->
+<div class="main">
+    <div class="page_left">
+        {volist name="list" id="vo" empty="暂无数据"}
+        <div class="detail_container trans_3">
+            <h1>{$vo.newsName}</h1>
+            <div class="date_hits"><span><i>发布时间：</i>{$vo.newsTime}</span><span><i>热度：</i> {$vo.total} ℃</span><span><i>评论数：</i> <a href="#SOHUCS" id="changyan_count_unit"></a></span></div>
+            <!--<div class="content"><p>出现过多重定向的修改根目录.htaccess &nbsp;去掉index.php后面的问号</p><p><img src="
+" alt="bb.png"><br></p></div>-->
+            <div class="content">{$vo.content}</div>
+            <div class="keywords"><p>{$vo.keyword}</p></div>
+            <div class="prev_next">
+               <!-- <div class="prev">上一篇：<a href="/article/56.html">LzCMS（老张博客系统）栏目不能删除，栏目删除失败解决办法</a></div>
+                <div class="next">下一篇：<a href="/article/51.html">LzCMS（老张博客系统）v1.1.3 更新</a></div>-->
+                <div class="clear"></div>
+            </div>
+            <div class="commont_containr">
+                <!--【畅言】表情评价-->
+                <div id="cyEmoji" role="cylabs" data-use="emoji" sid="1554"><div class="cy-wrapper">
+                    <div class="emoji-tip">表个态吧
+                    </div>
+                    <ul class="emoji-list">
+                        <li class="emoji-item" data-eid="29" data-ubb="[打酱油]" data-desc="打酱油，路过……" data-num="1" style="width: 187px;">
+                            <div><img src="http://comment.news.sohu.com/upload/comment4_1/images/face2013/11.gif" title="打酱油"></div>
+                            <p class="emoji-name">打酱油</p>
+                            <p class="emoji-num">1人</p>
+                        </li>
+                        <li class="emoji-item" data-eid="30" data-ubb="[鼓掌]" data-desc="鼓掌！撒花！啪啪啪~啪啪啪~" data-num="1" style="width: 187px;">
+                            <div><img src="http://comment.news.sohu.com/upload/comment4_1/images/face2013/1.gif" title="鼓掌"></div>
+                            <p class="emoji-name">鼓掌</p>
+                            <p class="emoji-num">1人</p>
+                        </li>
+                        <li class="emoji-item" data-eid="42" data-ubb="[赞]" data-desc="赞一个！" data-num="1" style="width: 187px;">
+                            <div><img src="http://comment.news.sohu.com/upload/comment4_1/images/face2013/13.gif" title="赞"></div>
+                            <p class="emoji-name">赞</p>
+                            <p class="emoji-num">1人</p>
+                        </li>
+                        <li class="emoji-item" data-eid="43" data-ubb="[鄙视]" data-desc="战斗力只有5的渣渣！" data-num="1" style="width: 187px;">
+                            <div><img src="http://comment.news.sohu.com/upload/comment4_1/images/face2013/9.gif" title="鄙视"></div>
+                            <p class="emoji-name">鄙视</p>
+                            <p class="emoji-num">1人</p>
+                        </li>
+                    </ul>
+                </div></div>
+                <!--【畅言】PC和WAP自适应版-->
+                <div id="SOHUCS" sid="1554"></div>
+            </div>
+
+        </div>
+        {/volist}
+    </div>
+    <div class="page_right">
+        <div class="second_categorys_container">
+            <h3>栏目导航</h3>
+            <ol class="seond_category trans_3">
+                {volist name="category" id="vo" empty=""}
+                    <li {if condition="$vo.id eq $newsCid"}class='selected'{/if} ><a href="{:url('index/index/index',  array('cid'=>$vo['id']) )}" class="layui-btn layui-btn-primary trans_1">{$vo.name}</a></li>
+                {/volist}
+            </ol>
+        </div>
+
+        <div class="hot_list">
+            <h3>相关文章</h3>
+            <ol class="page_right_list trans_3">
+                {volist name="hot_list" id="vo" length='5'}
+                <li><a href="{:url('index/article/index',  array('id'=>$vo['id']) )}">{$vo.newsName}</a><span class="hits"> {$vo.total} ℃ </span></li>
+                {/volist}
+            </ol>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="public/footed"}
+<script type="text/javascript">
+    (function(){
+        var appid = '';
+        var conf = '';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) { window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script>
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid=cysMsLdOg"></script>
+<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+<script type="text/javascript" src="__LAYUI__/layui.js"></script>
+<script type="text/javascript" src="__JS__index/article/article.js"></script>
+<script type="text/javascript" src="__JS__index/index/index.js"></script>
+</body>
+</html>

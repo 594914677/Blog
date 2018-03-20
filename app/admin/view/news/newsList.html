@@ -1,0 +1,91 @@
+<!-- 头部公共文件 -->
+{include file="public/header"}
+<body class="childrenBody">
+
+<blockquote class="layui-elem-quote quoteBox search">
+    <form id="formid" method = 'get'  action ="{:url('admin/news/newsSearch')}" style="display:inline">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <input type="text" value="" name="search" placeholder="请输入关键字" class="layui-input search_input">
+            </div>
+            <button class="layui-btn" lay-submit lay-filter="formid">查询</button>
+        </div>
+    </form>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-normal newsAdd_btn" data-url="{:url('admin/news/newsAdd')}">添加文章</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn audit_btn" data-url="{:url('admin/news/newsShenHe')}">审核文章</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-danger batchDel" data-url="{:url('admin/news/newsDelAll')}">批量删除</a>
+    </div>
+
+</blockquote>
+<div class="layui-form news_list">
+    <table class="layui-table" >
+        <thead>
+        <tr>
+            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
+            <th style="text-align:left;">文章标题</th>
+            <th>发布人</th>
+            <th>审核状态</th>
+            <th>所属分类</th>
+            <th>是否推荐</th>
+            <th>是否展示</th>
+            <th  lay-data="{field:'newsTime', sort: true, edit: 'text'}">发布时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="news_content">
+        {volist name="list" id="vo"}
+        <tr data-id="{$vo.id}" style="text-align: center">
+            <td>
+                <input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
+                    <i class="layui-icon"></i>
+                </div>
+            </td>
+            <td align="left">{$vo.newsName}</td>
+            <td>{$vo.newsAuthor}</td>
+            {if condition="($vo.newsStatus == 1)"}
+            <td>审核通过</td>
+            {else /}
+            <td style="color: red">待审核</td>
+            {/if}
+
+            <td>{$vo.name}</td>
+
+            <td><input type="checkbox" name="tuijian" lay-skin="switch" data-url="{:url('admin/news/newsTuijian', array('id'=>$vo['id']) )}" data-id="{$vo.id}"  lay-text="是|否" lay-filter="tuijian" {$vo.tuijian ? 'checked' : ''}>
+                {if condition="($vo.isShow == 1)"}
+                <div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>是</em><i></i></div>
+                {else /}
+                <div class="layui-unselect layui-form-switch" lay-skin="_switch"><em>否</em><i></i></div>
+                {/if}
+            </td>
+
+            <td><input type="checkbox" name="show" lay-skin="switch" data-url="{:url('admin/news/newsIsShow', array('id'=>$vo['id']) )}" data-id="{$vo.id}"  lay-text="是|否" lay-filter="isShow" {$vo.isShow ? 'checked' : ''}>
+                {if condition="($vo.isShow == 1)"}
+                <div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>是</em><i></i></div>
+                {else /}
+                <div class="layui-unselect layui-form-switch" lay-skin="_switch"><em>否</em><i></i></div>
+                {/if}
+            </td>
+            <td>{$vo.newsTime}</td>
+            <td class="other">
+                <a class="layui-btn layui-btn-xs news_edit" data-url="{:url('admin/news/newsUp', array('id'=>$vo['id']) )}" data-id="{$vo.id}">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs news_del" data-url="{:url('admin/news/newsDel', array('id'=>$vo['id']) )}" data-id="{$vo.id}">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div>
+    {$list->render()}
+</div>
+<script type="text/javascript" src="__LAYUI__/layui.js"></script>
+<script type="text/javascript" src="__JS__admin/new/newsList.js"></script>
+
+</body>
+</html>

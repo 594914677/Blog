@@ -1,0 +1,20 @@
+body{background: #eee;min-height: 100%;min-width: 320px;}
+h1, h2, h3 {
+    font-size: 14px;
+    font-weight: 400;
+}
+.main {max-width: 1200px; width: 60%; margin: 0 auto;position: relative;}
+.index_main{position: relative;}
+/*header*/
+.header {height: 64px;width: 100%;background-color: #393D49;border-bottom: 1px solid #404553;/*position: fixed;*/top: 0;margin-bottom: 20px;}
+.header .logo {position: absolute;left: 60px;top: 0px;}
+.header .logo img {height: 64px;}
+.header .layui-nav {position: absolute;left: 15%;top: 0px;padding: 0;background: none;width: 85%;}
+.header .layui-nav {float: right;}
+.header .layui-nav .layui-nav-item {line-height: 64px;margin: 0 4%;}
+.header .head_search {display: block;height: 38px;position: absolute;right: -1px;top: 0;text-align: center;padding: 12px 0px;}
+/*顶部高度*/
+.header_back {height: 65px;}
+/*footer*/
+.footer {position: inherit;bottom:0;left:0;right:0;padding: 15px 0;line-height: 24px;text-align: center;color: #999;font-weight: 300;width: 100%;clear: both;border-top: 1px solid #404553;background-color: #393D49;}
+.footer a {padding: 0 5px;color: #999;transition: all 0.3s linear;-moz-transition: all 0.3s linear;-webkit-transition: all 0.3s linear;-o-transition: all 0.3s linear;}
